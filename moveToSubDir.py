@@ -3,8 +3,6 @@ This script assists in adapting a command used in one of the steps of a larger p
 See README.md for the full instructions.
 """
 
-from __future__ import print_function
-import os
 from sys import argv
 
 if len(argv) != 2:
@@ -16,4 +14,7 @@ git ls-tree --name-only -r $GIT_COMMIT | egrep -v "^%newpath/" | xargs -I thepat
 '
 '''
 
-print(cmd.replace("%newpath", argv[1].strip("/")))
+cmd = cmd.replace("%newpath", argv[1].strip("/"))
+with open("cmd.sh", "w") as f:
+	f.write(cmd)
+print("Command was written to cmd.sh")
