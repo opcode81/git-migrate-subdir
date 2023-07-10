@@ -35,7 +35,7 @@ Note that there are four occurrences of `new/dir` in the above snippet. The **Py
 Add a remote for the source repository and merge the temporary branch we created.
 
     git remote add –f source-repo <source-repo-url>
-    git merge source-repo/temp-branch
+    git merge source-repo/temp-branch --allow-unrelated-histories
 
 Voila, you will have source-repo’s `./the/source/dir` at `./new/dir` in the target repository.
 
