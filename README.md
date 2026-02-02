@@ -36,8 +36,15 @@ Since we want the data to end up in `new/dir` eventually, we rewrite the new bra
     git ls-tree --name-only -r $GIT_COMMIT | egrep -v "^new/dir/" | xargs -I thepath mv -v thepath new/dir/thepath
     '
 
-Note that there are four occurrences of `new/dir` in the above snippet. The **Python script** `moveToSubDir.py` serves to assist in the adaptation of the command and prints an adapted version for you.
+Note that there are four occurrences of `new/dir` in the above snippet. The **Python script** `moveToSubDir.py` serves to assist in the adaptation of the command and prints an adapted version for you. Usage:
 
+    python moveToSubDir.py new/dir
+
+Execute the resulting script on the branch created in the first step:
+
+    git checkout temp-branch
+    sh cmd.sh
+    
 ## Steps to take in target repository
 
 Add a remote for the source repository and merge the temporary branch we created.
@@ -49,3 +56,4 @@ Voila, you will have source-repo’s `./the/source/dir` at `./new/dir` in the ta
 
 
  
+
