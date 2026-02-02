@@ -1,6 +1,6 @@
-# Moving a directory in one repository to a new path in another repository 
+# Moving a (directory in one) repository to a new path in another repository 
 
-This document explains how to move a subtree rooted at a given directory in one repository to a new path in another repository and ...
+This document explains how to move a (subtree rooted at a given directory in one) repository to a new path in another repository and ...
 
 * maintain all the history,
 * not require `--follow` for the history to work,
@@ -8,17 +8,25 @@ This document explains how to move a subtree rooted at a given directory in one 
 
 ## Task
 
-The following instructions assume that we want to move the contents of `./the/source/dir` in some source repository to `./new/dir` in some target repository. 
+The following instructions assume that we want to move the contents of `./the/source/dir` in some source repository to `./new/dir` in some target repository. (The case where `./the/source/dir` is the full repository, i.e. `.`, is a special case of this.)
 
 Note: These two paths and the source repository URL`<source-repo-url>`are the only variables that you will need to adapt in the instructions below.
 
 ## Steps to take in the source repository
+
+### Step 1: Creating the source branch containing the relevant data
 
 From the source branch in the source repository, create a new branch that contains only the data to be moved:
 
     git subtree split -P the/source/dir -b temp-branch
 
 This will cause data previously at `./the/source/dir/` in the source branch to be in `./` in the newly created branch `temp-branch`.
+
+For the case where the entire repository shall be moved, simply create a regular branch:
+
+    git branch temp-branch HEAD
+
+### Step 2: Moving data in the source branch to the desired target path
 
 Since we want the data to end up in `new/dir` eventually, we rewrite the new branch’s history to move it there:
 
@@ -38,5 +46,6 @@ Add a remote for the source repository and merge the temporary branch we created
     git merge source-repo/temp-branch --allow-unrelated-histories
 
 Voila, you will have source-repo’s `./the/source/dir` at `./new/dir` in the target repository.
+
 
  
